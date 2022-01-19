@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from "react";
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Introduction from "./components/Introduction.js";
+import Hello from "./components/Hello";
+import {PopUpContext} from "./context/NameContext";
+import Test from "./components/Test";
+import Nav from "./components/Nav";
 
 function App() {
+  const [isOpen,setIsOpen]=useContext(PopUpContext)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+      <div className="App">
+        <Nav />
+        <header className="App-header">
+          <Routes>
+            <Route path="/" element={<Introduction />} exact />
+            <Route path="/hello" element={<Hello />} />
+            <Route path="/test" element={<Test/>}/>
+          </Routes>
+        </header>
+        {isOpen && <Hello/>}
+      </div>
+    
   );
 }
 
